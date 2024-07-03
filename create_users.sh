@@ -84,11 +84,11 @@ while IFS= read -r line; do
   done
 
   # Extract the primary group (first element)
-  primary_group="${groups_array[0]}"
+  primary_group="${username}"
 
   # Extract the remaining groups
-  if [ "${#groups_array[@]}" -gt 1 ]; then
-      additional_groups=$(IFS=,; echo "${groups_array[*]:1}")
+  if [ "${#groups_array[@]}" -gt 0 ]; then
+      additional_groups=$(IFS=,; echo "${groups_array[*]:0}")
   else
       additional_groups=""
   fi
