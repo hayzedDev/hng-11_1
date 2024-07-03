@@ -122,8 +122,12 @@ while IFS= read -r line; do
 
   # Check if the user already exists
   if id "$username" &>/dev/null; then
-    echo "User '$username' already exists. Skipping..."
-    echo "User '$username' already exists. Skipping..." >> $user_mgt_file_path
+
+    usermod -g "$primary_group" "$username"
+    usermod -aG "$additional_groups" "$username"
+
+    echo "User '$username' already exists. Adding the user to the groups and skipping..."
+    echo "User '$username' already exists. Adding the user to the groups and skipping..." >> $user_mgt_file_path
   else
     # Create the user with the primary group and additional groups if any
     if [ -n "$additional_groups" ]; then
